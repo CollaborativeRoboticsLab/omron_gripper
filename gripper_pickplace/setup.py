@@ -24,7 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'pickplace = gripper_pickplace.pickplace_program:main',
+            'pickplace_program = gripper_pickplace.pickplace_program:main',
             'teach_setup = gripper_pickplace.teach_setup:main',
             'marker = gripper_pickplace.marker_pub:main',
         ],

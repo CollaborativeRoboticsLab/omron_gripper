@@ -26,7 +26,7 @@ def generate_launch_description():
     )
 
     modbus_server_node = Node(
-        package='pickplace',
+        package='gripper_core',
         executable='modbus_server',
         output='screen',
     )

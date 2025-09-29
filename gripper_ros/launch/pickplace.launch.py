@@ -5,10 +5,7 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
-pp_share = get_package_share_directory('pickplace')
-pp_library =  pp_share + '/pickplace/pp_library'
-
-from pp_library import Transform
+from gripper_core import Transform
 
 def load_file(package_name, file_path):
     package_path = get_package_share_directory(package_name)
@@ -37,7 +34,7 @@ def generate_launch_description():
     #robot_description_config = load_file('tm_models', 'urdf/tm12.urdf')
     robot_description = {'robot_description' : robot_description_config}
 
-    pp_config = get_package_share_directory('pickplace') + '/config.txt'
+    pp_config = 'config.txt'
     view_pick = []
     view_place = []
     with open(pp_config) as json_file:
@@ -51,7 +48,7 @@ def generate_launch_description():
   
 
     # RViz
-    rviz_config_file = get_package_share_directory('pickplace') + "/config.rviz"
+    rviz_config_file = get_package_share_directory('gripper_ros') + "/config.rviz"
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -110,27 +107,27 @@ def generate_launch_description():
 
     # Pickplace Program
     pickplace_node = Node(
-        package='pickplace',
-        executable='pickplace',
+        package='gripper_pickplace',
+        executable='pickplace_program',
         output='screen'
     )
 
     # Marker Publisher
     marker_publisher_node = Node(
-        package='pp_marker',
+        package='gripper_pickplace',
         executable='marker',
         output='screen'
     )
     
     # Destination Publisher
     destination_publisher_node = Node(
-        package='pickplace',
+        package='gripper_core',
         executable='destination_publisher',
         output='screen'
     )
 
     modbus_server_node = Node(
-        package='pickplace',
+        package='gripper_core',
         executable='modbus_server',
         output='screen',
     )
